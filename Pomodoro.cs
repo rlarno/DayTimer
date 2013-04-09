@@ -129,6 +129,11 @@
             get { return pauze + (IsPauze ? Elapsed : TimeSpan.Zero); }
         }
 
+        public TimeSpan TotalInactive
+        {
+            get { return inactive + (Activity == Activity.InActive ? Elapsed : TimeSpan.Zero); }
+        }
+
         public bool IsPauze
         {
             get
@@ -145,9 +150,13 @@
             timer.Change(Interval);
         }
 
+        /// <summary>
+        /// Keep on working, reset the timer to the PauzeInterval
+        /// </summary>
         internal void DismissPauze()
         {
             if (Activity != Activity.Working) throw new InvalidOperationException("DismissPauze Should not be called if not working");
+            Interval = PauzeInterval;
             timer.Change(PauzeInterval);
         }
 

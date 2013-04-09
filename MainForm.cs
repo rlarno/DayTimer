@@ -29,6 +29,8 @@ namespace DayTimer
         public TimeSpan startupInterval;
         public TimeSpan workInterval;
         public TimeSpan pauzeInterval;
+
+        public TimeSpan inactive;
     }
 
     public interface ITime
@@ -193,9 +195,10 @@ namespace DayTimer
                 t.workInterval = Pomodoro.WorkInterval;
                 t.pauzeInterval = Pomodoro.PauzeInterval;
                 t.day = _dayTimer.RunningTime;
-                t.running = _pomodoro.Elapsed;
                 t.work = _pomodoro.TotalWork;
                 t.pauze = _pomodoro.TotalPauze;
+                t.inactive = _pomodoro.TotalInactive;
+                t.running = _pomodoro.Elapsed;
                 t.remaining = _pomodoro.Remaining;
                 return t;
             }

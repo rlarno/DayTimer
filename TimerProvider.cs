@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TimerProvider.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace DayTimer
+﻿namespace DayTimer
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +18,8 @@ namespace DayTimer
         void Stop();
     }
 
-    public class TimerProvider : ITimer, IDisposable
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
+    public class TimerProvider : ITimer
     {
         private Timer timer;
 
@@ -40,11 +35,6 @@ namespace DayTimer
         public TimerProvider(TimeSpan dueTime, TimeSpan period, object state = null)
         {
             timer = new Timer(TimerCallback, state, dueTime, period);
-        }
-
-        public void Dispose()
-        {
-            timer.Dispose();
         }
 
         public void Change(TimeSpan dueTime)
