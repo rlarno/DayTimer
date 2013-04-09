@@ -210,14 +210,28 @@ namespace DayTimer
                 var t = Timings;
                 var format = Properties.Resources.MainFormText;
                 var s = string.Format(format,
-                    t.day.ToString(@"hh\:mm\:ss"),
-                    t.work.ToString(@"hh\:mm\:ss"),
-                    t.pauze.ToString(@"hh\:mm\:ss"),
-                    t.running.ToString(@"mm\:ss"),
-                    t.remaining > TimeSpan.Zero ? string.Empty : "-",
-                    t.remaining.ToString(@"mm\:ss"));
+                    FormatTimeSpan(t.day, true), //(@"hh\:mm\:ss"),
+                    FormatTimeSpan(t.work, true), //(@"hh\:mm\:ss"),
+                    FormatTimeSpan(t.pauze, true), //(@"hh\:mm\:ss"),
+                    FormatTimeSpan(t.running), //(@"mm\:ss"),
+                    FormatTimeSpan(t.remaining, false, true)); //(@"mm\:ss"));
                 return s;
             }
+        }
+
+        private static string FormatTimeSpan(TimeSpan span, bool showHours = false, bool showSign = false)
+        {
+            string sign = String.Empty;
+            if (showSign && (span < TimeSpan.Zero))
+                sign = "-";
+
+            //span.Days.ToString("00") + "." +
+            string hours = string.Empty;
+            if (showHours) hours = span.Hours.ToString("00") + ":";
+
+            return sign + hours +
+                   span.Minutes.ToString("00") + ":" +
+                   span.Seconds.ToString("00");
         }
 
         private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -235,12 +249,11 @@ namespace DayTimer
         {
             var t = Timings;
             var s = string.Format(Properties.Resources.TrayToolTip,
-                t.day.ToString(@"hh\:mm\:ss"),
-                    t.work.ToString(@"hh\:mm\:ss"),
-                    t.pauze.ToString(@"hh\:mm\:ss"),
-                t.running.ToString(@"mm\:ss"),
-                t.remaining > TimeSpan.Zero ? string.Empty : "-",
-                t.remaining.ToString(@"mm\:ss"),
+                FormatTimeSpan(t.day, true), //(@"hh\:mm\:ss"),
+                    FormatTimeSpan(t.work, true), //(@"hh\:mm\:ss"),
+                    FormatTimeSpan(t.pauze, true), //(@"hh\:mm\:ss"),
+                FormatTimeSpan(t.running), //(@"mm\:ss"),
+                FormatTimeSpan(t.remaining, false, true), //(@"mm\:ss"),
                 t.Activity
                 );
             notifyIcon.Text = s.Substring(0, Math.Min(s.Length, 63));

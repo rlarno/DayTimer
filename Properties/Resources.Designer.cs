@@ -111,7 +111,7 @@ namespace DayTimer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Day: {0} - Work {1} - Pauze {2} 
-        ///Running {3} - Remaining {4}{5}.
+        ///Running {3} - Remaining {4}.
         /// </summary>
         internal static string MainFormText {
             get {
@@ -185,11 +185,11 @@ namespace DayTimer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {6}
+        ///   Looks up a localized string similar to {5}
         ///Day: {0}
         ///W:{1}
         ///P:{2}
-        ///{3}/{4}{5}.
+        ///{3}/{4}.
         /// </summary>
         internal static string TrayToolTip {
             get {
